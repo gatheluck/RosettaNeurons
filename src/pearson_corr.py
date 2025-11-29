@@ -61,20 +61,20 @@ def pearson_corr_activations(
             f"(got {activation_map_1.device} and {activation_map_2.device})."
         )
 
-    # Use float32 for computation and keep the original device.
-    activation_map_1 = activation_map_1.float()
-    activation_map_2 = activation_map_2.float()
-
     batch_size, channels_1, height, width = activation_map_1.shape
     channels_2: int = activation_map_2.shape[1]
     num_samples: int = batch_size * height * width
 
     # Reshape to (channels, num_samples); each row is one flattened channel.
-    activations_1: torch.Tensor = activation_map_1.permute(1, 0, 2, 3).reshape(
-        channels_1, num_samples
+    activations_1: torch.Tensor = (
+        activation_map_1.flatten(start_dim=2)
+        .movedim(1, 0)
+        .reshape(channels_1, num_samples)
     )
-    activations_2: torch.Tensor = activation_map_2.permute(1, 0, 2, 3).reshape(
-        channels_2, num_samples
+    activations_2: torch.Tensor = (
+        activation_map_2.flatten(start_dim=2)
+        .movedim(1, 0)
+        .reshape(channels_2, num_samples)
     )
 
     # Center each channel by subtracting its mean.
