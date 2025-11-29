@@ -1,4 +1,4 @@
-# Ascender Bare
+# Rosetta Neurons
 
 ![python versions](https://img.shields.io/badge/python-3.10%20%7C%203.11%20%7C%203.12-blue)
 [![MIT License](https://img.shields.io/github/license/cvpaperchallenge/Ascender?color=green)](LICENSE)
